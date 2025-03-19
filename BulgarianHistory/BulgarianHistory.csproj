@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-BulgarianHistory-501b9cb7-85c4-456b-bda3-436bd249215d</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.30" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.30" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.30" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.30" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.30" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BulgarianHistory.Data\BulgarianHistory.Data.csproj" />
+    <ProjectReference Include="..\BulgarianHistory.Web.ViewModel\BulgarianHistory.Web.ViewModel.csproj" />
+  </ItemGroup>
+
+</Project>

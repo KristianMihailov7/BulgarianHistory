@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulgarianHistory", "BulgarianHistory\BulgarianHistory.csproj", "{D0B73611-1354-4512-A984-881DA32F7F43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulgarianHistory.Common", "BulgarianHistory.Common\BulgarianHistory.Common.csproj", "{0F0C2851-BA17-43B0-8CA2-CE864255FD44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulgarianHistory.Data.Models", "BulgarianHistory.Data.Models\BulgarianHistory.Data.Models.csproj", "{80C60C96-CCB5-406B-AE27-2C6EE9296C57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulgarianHistory.Data", "BulgarianHistory.Data\BulgarianHistory.Data.csproj", "{11482235-5C92-4768-B9C9-6B0416E474E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulgarianHistory.UnitTests", "BulgarianHistory.UnitTests\BulgarianHistory.UnitTests.csproj", "{D93B2431-2AF2-4DA8-8842-57520264DD7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulgarianHistory.Web.ViewModel", "BulgarianHistory.Web.ViewModel\BulgarianHistory.Web.ViewModel.csproj", "{D9A99FDB-6F09-4BF2-B450-A13219ECCE49}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0B73611-1354-4512-A984-881DA32F7F43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0B73611-1354-4512-A984-881DA32F7F43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0B73611-1354-4512-A984-881DA32F7F43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0B73611-1354-4512-A984-881DA32F7F43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F0C2851-BA17-43B0-8CA2-CE864255FD44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F0C2851-BA17-43B0-8CA2-CE864255FD44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F0C2851-BA17-43B0-8CA2-CE864255FD44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F0C2851-BA17-43B0-8CA2-CE864255FD44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80C60C96-CCB5-406B-AE27-2C6EE9296C57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80C60C96-CCB5-406B-AE27-2C6EE9296C57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80C60C96-CCB5-406B-AE27-2C6EE9296C57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80C60C96-CCB5-406B-AE27-2C6EE9296C57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11482235-5C92-4768-B9C9-6B0416E474E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11482235-5C92-4768-B9C9-6B0416E474E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11482235-5C92-4768-B9C9-6B0416E474E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11482235-5C92-4768-B9C9-6B0416E474E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D93B2431-2AF2-4DA8-8842-57520264DD7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D93B2431-2AF2-4DA8-8842-57520264DD7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D93B2431-2AF2-4DA8-8842-57520264DD7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D93B2431-2AF2-4DA8-8842-57520264DD7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9A99FDB-6F09-4BF2-B450-A13219ECCE49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9A99FDB-6F09-4BF2-B450-A13219ECCE49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9A99FDB-6F09-4BF2-B450-A13219ECCE49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9A99FDB-6F09-4BF2-B450-A13219ECCE49}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EB21AA85-934E-4169-928A-E5387A00CA9D}
+	EndGlobalSection
+EndGlobal
