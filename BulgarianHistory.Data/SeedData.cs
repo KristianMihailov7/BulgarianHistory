@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BulgarianHistory.Data
@@ -13,49 +14,74 @@ namespace BulgarianHistory.Data
         {
             using var context = new ApplicationDbContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>());
 
-            // Сийдване на роли и админ потребител
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
-            // 1. Създаваме роля Admin, ако не съществува
-            if (!await roleManager.RoleExistsAsync("Admin"))
+            string[] roles = { "Admin", "User" };
+
+            // Create roles if they do not exist
+            foreach (var role in roles)
             {
-                await roleManager.CreateAsync(new IdentityRole("Admin"));
+                if (!await roleManager.RoleExistsAsync(role))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(role));
+                }
             }
 
-            // 2. Проверяваме дали съществува админ потребител
+            // Create default admin user
             var adminEmail = "admin@admin.com";
+            var adminPassword = "Test123!";
             var adminUser = await userManager.FindByEmailAsync(adminEmail);
 
             if (adminUser == null)
             {
-                // 3. Създаваме нов админ потребител
                 adminUser = new User
                 {
                     UserName = adminEmail,
                     Email = adminEmail,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    DateRegistered = DateTime.UtcNow
                 };
 
-                var result = await userManager.CreateAsync(adminUser, "Admin123!");
-
+                var result = await userManager.CreateAsync(adminUser, adminPassword);
                 if (result.Succeeded)
                 {
-                    // 4. Добавяме към Admin роля
                     await userManager.AddToRoleAsync(adminUser, "Admin");
                 }
                 else
                 {
-                    throw new Exception("Не успях да създам админ потребителя: " + string.Join(", ", result.Errors.Select(e => e.Description)));
+                    throw new Exception("Admin creation failed: " + string.Join(", ", result.Errors.Select(e => e.Description)));
                 }
             }
 
-            // 5. Сийд на останалите данни (твоите епохи, градове, събития и т.н.)
+            // Optionally create a demo user
+            var demoEmail = "user@demo.com";
+            var demoPassword = "User123!";
+            var demoUser = await userManager.FindByEmailAsync(demoEmail);
+
+            if (demoUser == null)
+            {
+                demoUser = new User
+                {
+                    UserName = demoEmail,
+                    Email = demoEmail,
+                    EmailConfirmed = true,
+                    DateRegistered = DateTime.UtcNow
+                };
+
+                var result = await userManager.CreateAsync(demoUser, demoPassword);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(demoUser, "User");
+                }
+            }
+
+            // Seed historical data (if not present)
             if (!await context.Eras.AnyAsync())
             {
                 await context.Eras.AddRangeAsync(
-                    new Era { Name = "First Bulgarian Empire", Description = "The first Bulgarian state (681-1018).", ImageUrl = "https://i.ibb.co/ynLS96Wk/fbe.jpg" },
-                    new Era { Name = "Second Bulgarian Empire", Description = "The second Bulgarian state (1185-1396).", ImageUrl = "https://www.bulgariantimes.co.uk/wp-content/uploads/2023/05/1_29_09_18_6_19_35.jpeg" }
+                    new Era { Name = "First Bulgarian Empire", Description = "The first Bulgarian state (681–1018).", ImageUrl = "https://i.ibb.co/ynLS96Wk/fbe.jpg" },
+                    new Era { Name = "Second Bulgarian Empire", Description = "The second Bulgarian state (1185–1396).", ImageUrl = "https://www.bulgariantimes.co.uk/wp-content/uploads/2023/05/1_29_09_18_6_19_35.jpeg" }
                 );
                 await context.SaveChangesAsync();
             }
