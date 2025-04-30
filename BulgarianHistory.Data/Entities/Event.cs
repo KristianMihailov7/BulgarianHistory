@@ -1,6 +1,5 @@
-﻿using BulgarianHistory.Data.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 
 namespace BulgarianHistory.Data.Entities
 {
@@ -21,14 +20,14 @@ namespace BulgarianHistory.Data.Entities
         [Required]
         public int Year { get; set; }
 
-        // Връзка с Епохи
         [Required]
         public int EraId { get; set; }
+
         public Era Era { get; set; }
 
-        public ICollection<EventCity> EventCities { get; set; }
-        public ICollection<EventFamousPerson> EventFamousPeople { get; set; }
-        public ICollection<Fact> Facts { get; set; }
-        public ICollection<Source> Sources { get; set; }
+        public ICollection<EventCity> EventCities { get; set; } = new List<EventCity>();
+        public ICollection<EventFamousPerson> EventFamousPeople { get; set; } = new List<EventFamousPerson>();
+        public ICollection<Fact> Facts { get; set; } = new List<Fact>();
+        public ICollection<Source> Sources { get; set; } = new List<Source>();
     }
 }

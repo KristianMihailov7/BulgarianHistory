@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Админ Панел";
+}
+
+<div class="container mt-5">
+    <h1 class="text-warning mb-4 text-center">Административен панел</h1>
+
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card bg-dark text-light shadow-lg h-100 border-warning border-2">
+                <div class="card-body text-center">
+                    <h4 class="card-title text-warning">Епохи</h4>
+                    <p class="card-text">Управление на исторически епохи.</p>
+                    <a asp-controller="Era" asp-action="Index" class="btn btn-warning">Към епохи</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card bg-dark text-light shadow-lg h-100 border-warning border-2">
+                <div class="card-body text-center">
+                    <h4 class="card-title text-warning">Градове</h4>
+                    <p class="card-text">Добави или редактирай градове.</p>
+                    <a asp-controller="City" asp-action="Index" class="btn btn-warning">Към градове</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card bg-dark text-light shadow-lg h-100 border-warning border-2">
+                <div class="card-body text-center">
+                    <h4 class="card-title text-warning">Събития</h4>
+                    <p class="card-text">Исторически събития, свързани с епохи и личности.</p>
+                    <a asp-controller="Event" asp-action="Index" class="btn btn-warning">Към събития</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card bg-dark text-light shadow-lg h-100 border-warning border-2">
+                <div class="card-body text-center">
+                    <h4 class="card-title text-warning">Известни личности</h4>
+                    <p class="card-text">Управление на известни личности, свързани със събития.</p>
+                    <a asp-controller="FamousPerson" asp-action="Index" class="btn btn-warning">Към личности</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

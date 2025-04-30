@@ -1,0 +1,35 @@
+﻿@model BulgarianHistory.Web.ViewModel.City.CityDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container mt-4 text-light bg-dark p-4 rounded shadow">
+    <h1 class="text-warning">@Model.Name</h1>
+    <img src="@Model.ImageUrl" class="img-fluid rounded my-3" style="max-height: 400px; object-fit: cover;">
+    <p>@Model.Description</p>
+
+    @if (Model.RelatedEvents.Any())
+    {
+        <hr class="border-warning" />
+        <h4 class="text-warning">Събития</h4>
+        <ul>
+            @foreach (var evt in Model.RelatedEvents)
+            {
+                <li><a href="/Event/Details/@evt.Id" class="text-decoration-none text-light">@evt.Name</a></li>
+            }
+        </ul>
+    }
+
+    @if (Model.FamousPeople.Any())
+    {
+        <hr class="border-warning" />
+        <h4 class="text-warning">Известни личности, свързани със събития в града</h4>
+        <ul>
+            @foreach (var person in Model.FamousPeople)
+            {
+                <li><a href="/FamousPerson/Details/@person.Id" class="text-decoration-none text-light">@person.Name</a></li>
+            }
+        </ul>
+    }
+</div>

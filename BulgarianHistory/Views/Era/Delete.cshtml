@@ -1,0 +1,23 @@
+﻿@model BulgarianHistory.Data.Entities.Era
+
+@{
+    ViewData["Title"] = "Изтриване на епоха";
+}
+
+<h2 class="text-danger">Изтриване на епоха</h2>
+
+<h4 class="text-warning">Сигурни ли сте, че искате да изтриете тази епоха?</h4>
+<div class="bg-dark text-light p-3 rounded border border-warning">
+    <dl class="row">
+        <dt class="col-sm-3">Име</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+
+        <dt class="col-sm-3">Описание</dt>
+        <dd class="col-sm-9">@Model.Description</dd>
+    </dl>
+
+    <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+        <button type="submit" class="btn btn-danger">Изтрий</button>
+        <a asp-action="Index" class="btn btn-secondary">Назад</a>
+    </form>
+</div>

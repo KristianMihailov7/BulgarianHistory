@@ -12,10 +12,7 @@ namespace BulgarianHistory.Data.Entities
         public string Name { get; set; }
 
         [Column(TypeName = "text")]
-        public string Biography { get; set; }
-
-        public int BirthYear { get; set; }
-        public int? DeathYear { get; set; }
+        public string Description { get; set; }
 
         [Column(TypeName = "varchar(255)")]
         public string ImageUrl { get; set; }
@@ -26,4 +23,5 @@ namespace BulgarianHistory.Data.Entities
 
         public ICollection<EventFamousPerson> EventFamousPeople { get; set; }
     }
+
 }

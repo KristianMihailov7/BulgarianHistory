@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<BulgarianHistory.Data.Entities.User> UserManager
+@inject SignInManager<BulgarianHistory.Data.Entities.User> SignInManager
+@{
+    var currentUser = UserManager.GetUserAsync(User).Result;
+    var isAdmin = currentUser != null && UserManager.IsInRoleAsync(currentUser, "Admin").Result;
+    }
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -23,8 +30,19 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-warning" href="/Timeline">Хронология</a>
                         </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item"><a asp-area="Identity" asp-page="/Account/Manage/Index" class="nav-link">Profile</a></li>
+
+                            @if (isAdmin)
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="Admin" asp-action="Index" class="nav-link text-warning">Админ Панел</a>
+                                </li>
+                            }
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -37,14 +55,20 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="mt-5 bg-dark text-light py-4">
         <div class="container">
             &copy; 2025 - BulgarianHistory - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@4.0.0/jquery.validate.unobtrusive.min.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

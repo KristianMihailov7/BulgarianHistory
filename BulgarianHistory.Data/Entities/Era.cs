@@ -19,8 +19,8 @@ namespace BulgarianHistory.Data.Entities
         [Column(TypeName = "varchar(255)")]
         public string ImageUrl { get; set; }
 
-        public ICollection<Event> Events { get; set; }
-        public ICollection<City> Cities { get; set; }
-        public ICollection<FamousPerson> FamousPeople { get; set; }
+        public ICollection<Event> Events { get; set; } = new List<Event>();
+        public ICollection<City> Cities { get; set; } = new List<City>();
+        public ICollection<FamousPerson> FamousPeople { get; set; } = new List<FamousPerson>(); 
     }
 }

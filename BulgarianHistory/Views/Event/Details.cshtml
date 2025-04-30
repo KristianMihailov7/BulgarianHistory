@@ -1,0 +1,95 @@
+﻿@model BulgarianHistory.Web.ViewModel.Event.EventDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container mt-4 bg-dark text-light p-4 rounded">
+    <div class="text-center mb-4">
+        <h1 class="text-warning fw-bold">@Model.Name</h1>
+        <h5 class="text-muted">Година: @Model.Year • Епоха: @Model.EraName</h5>
+        <img src="@Model.ImageUrl" class="img-fluid rounded shadow-lg my-3" style="max-height: 400px; object-fit: cover;">
+        <p class="fs-5">@Model.Description</p>
+    </div>
+
+    <div class="container mt-5">
+        @if (Model.Cities.Any())
+        {
+            <h4 class="text-warning">Свързани градове</h4>
+            <ul class="list-group mb-4">
+                @foreach (var city in Model.Cities)
+                {
+                    <li class="list-group-item bg-dark border-warning">
+                        <a href="/City/Details/@city.Id" class="text-decoration-none text-light">@city.Name</a>
+                    </li>
+                }
+            </ul>
+        }
+
+        @if (Model.FamousPeople.Any())
+        {
+            <h4 class="text-warning">Свързани личности</h4>
+            <div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
+                @foreach (var person in Model.FamousPeople)
+                {
+                    <div class="col">
+                        <div class="card h-100 bg-secondary text-light border-warning">
+                            <img src="@person.ImageUrl" class="card-img-top" style="height: 200px; object-fit: cover;" alt="@person.Name">
+                            <div class="card-body">
+                                <h5 class="card-title text-warning">@person.Name</h5>
+                                <p class="card-text">@person.ShortDescription</p>
+                            </div>
+                            <div class="card-footer bg-dark">
+                                <a href="/FamousPerson/Details/@person.Id" class="btn btn-sm btn-outline-warning w-100">Виж повече</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        @if (Model.Facts.Any())
+        {
+            <h4 class="text-warning">Интересни факти</h4>
+            <ul class="list-group mb-4">
+                @foreach (var fact in Model.Facts)
+                {
+                    <li class="list-group-item bg-dark border-warning text-light">@fact</li>
+                }
+            </ul>
+        }
+
+        @if (Model.Sources.Any())
+        {
+            <h4 class="text-warning">Източници</h4>
+            <ul class="list-group mb-4">
+                @foreach (var source in Model.Sources)
+                {
+                    <li class="list-group-item bg-dark border-warning">
+                        @if (!string.IsNullOrWhiteSpace(source.Url))
+                        {
+                            <a href="@source.Url" target="_blank" class="text-decoration-underline text-info">@source.Title</a>
+                        }
+                        else
+                        {
+                            @source.Title
+                        }
+                    </li>
+                }
+            </ul>
+        }
+
+        @if (Model.RelatedEvents.Any())
+        {
+            <h4 class="text-warning">Други събития от тази епоха</h4>
+            <ul class="list-group mb-4">
+                @foreach (var evt in Model.RelatedEvents)
+                {
+                    <li class="list-group-item bg-dark border-warning">
+                        <a href="/Event/Details/@evt.Id" class="text-decoration-none text-light">@evt.Name</a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>

@@ -1,5 +1,10 @@
 using BulgarianHistory.Data;
+using BulgarianHistory.Data.Entities;
+using FitnessEquipmentShop.Common;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace BulgarianHistory
@@ -16,11 +21,40 @@ namespace BulgarianHistory
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddIdentity<User, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
+
+            builder.Services.AddSingleton<IEmailSender, EmailSender>();
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme; // Optional default
+            })
+           .AddCookie()
+           .AddGoogle(googleOptions =>
+           {
+               googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+               googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+           })
+           .AddFacebook(facebookOptions =>
+           {
+               facebookOptions.AppId = builder.Configuration["Authentication:Facebook:AppId"];
+               facebookOptions.AppSecret = builder.Configuration["Authentication:Facebook:AppSecret"];
+           });
+
             builder.Services.AddControllersWithViews();
+            builder.Services.AddRazorPages();
+
+           
 
             var app = builder.Build();
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                SeedData.InitializeAsync(services).GetAwaiter().GetResult();
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

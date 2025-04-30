@@ -1,18 +1,26 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: #212529; /* Тъмен фон (същият като bg-dark) */
+    color: #f8f9fa; /* Светъл текст за добър контраст */
 }
+
+.container {
+    background-color: #2c2f33; /* Малко по-светъл сив фон за контейнери */
+    padding: 20px;
+    border-radius: 10px;
+}
+

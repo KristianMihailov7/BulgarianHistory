@@ -1,0 +1,33 @@
+﻿@model IEnumerable<BulgarianHistory.Data.Entities.Era>
+
+@{
+    ViewData["Title"] = "Епохи";
+}
+
+<h2 class="text-warning mb-4">Списък с епохи</h2>
+
+<a asp-action="Create" class="btn btn-success mb-3">Добави нова епоха</a>
+
+<table class="table table-dark table-bordered">
+    <thead>
+        <tr>
+            <th>Име</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var era in Model)
+        {
+            <tr>
+                <td>@era.Name</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@era.Id" class="btn btn-info btn-sm">Детайли</a>
+                    <a asp-action="Edit" asp-route-id="@era.Id" class="btn btn-warning btn-sm">Редакция</a>
+                    <form asp-action="Delete" asp-route-id="@era.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Изтрий</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

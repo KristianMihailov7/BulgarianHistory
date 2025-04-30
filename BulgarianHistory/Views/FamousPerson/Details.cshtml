@@ -1,0 +1,32 @@
+﻿@model BulgarianHistory.Web.ViewModel.FamousPerson.FamousPersonDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container mt-5 bg-dark text-light p-4 rounded shadow">
+    <div class="text-center">
+        <h1 class="text-warning fw-bold">@Model.Name</h1>
+        <h5 class="text-muted mb-4">@Model.EraName</h5>
+        <img src="@Model.ImageUrl" class="img-fluid rounded shadow-lg mb-4" style="max-height: 400px; object-fit: cover;" alt="@Model.Name">
+        <p class="fs-5">@Model.Description</p>
+    </div>
+
+    @if (Model.Events.Any())
+    {
+        <hr class="border-warning" />
+        <h4 class="text-warning mt-5">Свързани събития</h4>
+        <div class="timeline mt-3">
+            @foreach (var evt in Model.Events)
+            {
+                <div class="timeline-item position-relative border-start border-3 border-warning ps-4 py-3 mb-4">
+                    <div class="fw-bold text-warning">@evt.Year</div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="text-light">@evt.Name</div>
+                        <a href="/Event/Details/@evt.Id" class="btn btn-sm btn-outline-warning">Детайли</a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

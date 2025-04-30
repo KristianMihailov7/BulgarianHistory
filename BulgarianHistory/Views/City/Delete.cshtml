@@ -1,0 +1,14 @@
+﻿@model BulgarianHistory.Data.Entities.City
+
+@{
+    ViewData["Title"] = "Изтриване на град";
+}
+
+<h1 class="text-danger">Изтриване на град</h1>
+<h4 class="text-warning">Сигурни ли сте, че искате да изтриете "@Model.Name"?</h4>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Изтрий</button>
+    <a asp-action="Index" class="btn btn-secondary">Отказ</a>
+</form>

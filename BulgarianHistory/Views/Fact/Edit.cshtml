@@ -1,0 +1,32 @@
+﻿@model BulgarianHistory.Data.Entities.Fact
+
+@{
+    ViewData["Title"] = "Добавяне на факт";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Edit">
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Content" class="form-label"></label>
+        <textarea asp-for="Content" class="form-control"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ImageUrl" class="form-label"></label>
+        <input asp-for="ImageUrl" class="form-control" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="EventId" class="form-label">Свързано събитие</label>
+        <select asp-for="EventId" asp-items="ViewBag.EventId" class="form-select"></select>
+        <span asp-validation-for="EventId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Запази</button>
+    <a asp-action="Index" class="btn btn-secondary">Назад</a>
+</form>

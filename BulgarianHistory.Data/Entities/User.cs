@@ -10,8 +10,8 @@ namespace BulgarianHistory.Data.Entities
 {
     public class User : IdentityUser
     {
-        [Required, MaxLength(100)]
-        public string FullName { get; set; }
+/*        [Required, MaxLength(100)]
+        public string FullName { get; set; }*/
 
         public DateTime DateRegistered { get; set; } = DateTime.UtcNow;
     }

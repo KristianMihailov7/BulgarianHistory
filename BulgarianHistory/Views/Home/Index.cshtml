@@ -1,8 +1,49 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<BulgarianHistory.Web.ViewModel.Home.EraViewModel>
+
+@{
+    ViewData["Title"] = "Начало";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4 bg-dark text-light p-4 rounded">
+    <!-- Banner Section -->
+    <div class="banner mb-5 text-center position-relative">
+        <img src="https://historyofbg.com/images/home_background.jpg"
+             class="img-fluid w-100 shadow-lg"
+             style="height: 500px; object-fit: cover; filter: brightness(70%); border-radius: 15px;"
+             alt="Historical Bulgaria">
+        <div class="position-absolute top-50 start-50 translate-middle text-center text-light">
+            <h1 class="fw-bold text-uppercase animate__animated animate__fadeIn">Историята на България</h1>
+            <p class="fs-4 text-warning animate__animated animate__fadeIn animate__delay-1s">
+                Разгледай различните исторически епохи и открий славното минало!
+            </p>
+            <a href="#eras" class="btn btn-lg fw-bold px-4 shadow-lg animate__animated animate__pulse animate__infinite btn-outline-warning">Разгледай</a>
+        </div>
+    </div>
+
+    <!-- Eras Section -->
+    <section id="eras" class="my-5">
+        <div class="container p-3 bg-dark text-center shadow-lg border border-3 border-warning rounded" style="max-width: 600px; margin: 0 auto;">
+            <h2 class="text-warning fw-bold mb-2 animate__animated animate__fadeIn">📜 Исторически Епохи</h2>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+            @foreach (var era in Model)
+            {
+                <div class="col">
+                    <div class="card bg-dark text-white shadow-lg border-warning border-3 h-100 animate__animated animate__fadeIn animate__delay-1s">
+                        <div class="position-relative">
+                            <img src="@era.ImageUrl" class="card-img-top img-fluid rounded"
+                                 style="height: 250px; object-fit: cover; filter: brightness(70%);"
+                                 alt="@era.Name">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold text-warning">@era.Name</h5>
+                            <p class="fs-6 text-light">@era.Description.Substring(0, Math.Min(100, era.Description.Length))...</p>
+                            <a href="@Url.Action("Details", "Era", new { id = era.Id })"
+                               class="btn btn-warning btn-sm fw-bold px-4 animate__animated animate__pulse animate__infinite">Виж повече</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
 </div>
