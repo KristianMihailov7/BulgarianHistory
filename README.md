@@ -1,4 +1,4 @@
-# 🇧🇬 BulgarianHistory
+# BulgarianHistory
 
 An ASP.NET Core MVC web application for exploring the history of Bulgaria through an interactive timeline, categorized events, cities, famous people, and historical eras. Includes an admin dashboard for content management.
 
@@ -140,7 +140,7 @@ BulgarianHistory/
 
 ## 🧾 License
 
-MIT License © [Your Name / Organization]
+MIT License ©[Kristian Mihaylov]
 
 ---
 
