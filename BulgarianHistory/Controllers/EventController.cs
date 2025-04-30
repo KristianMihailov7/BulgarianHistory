@@ -118,11 +118,9 @@ namespace BulgarianHistory.Controllers
             if (id != @event.Id)
                 return NotFound();
 
-            // Check that EraId has a value before validating ModelState
+            // 🧠 Important: If EraId == 0, the user didn't select a value
             if (@event.EraId == 0)
-            {
-                ModelState.AddModelError("EraId", "Избери валидна епоха.");
-            }
+                ModelState.AddModelError("EraId", "Моля, изберете епоха.");
 
             if (ModelState.IsValid)
             {
@@ -134,18 +132,17 @@ namespace BulgarianHistory.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_context.Events.Any(e => e.Id == @event.Id))
+                    if (!EventExists(@event.Id))
                         return NotFound();
-                    else throw;
+                    else
+                        throw;
                 }
             }
 
-            // Repopulate dropdown list when redisplaying the view
+            // ✅ This repopulates the dropdown with the correct selected value
             ViewData["EraId"] = new SelectList(_context.Eras, "Id", "Name", @event.EraId);
-
             return View(@event);
         }
-
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
