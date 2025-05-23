@@ -22,6 +22,14 @@ namespace BulgarianHistory.Controllers
         public async Task<IActionResult> Index()
         {
             var events = _context.Events.Include(e => e.Era);
+            ViewBag.Eras = await _context.Eras
+                .Select(e => new SelectListItem
+                {
+                    Value = e.Id.ToString(),
+                    Text = e.Name
+                })
+                .ToListAsync();
+
             return View(await events.ToListAsync());
         }
 
@@ -86,11 +94,13 @@ namespace BulgarianHistory.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,ImageUrl,Year,EraId")] Event @event)
+        public async Task<IActionResult> Create([Bind("Name,Description,ImageUrl,Year,EraId")] Event @event)
         {
+            System.Diagnostics.Debug.WriteLine($"EraId получен: {@event.EraId}, валиден: {_context.Eras.Any(e => e.Id == @event.EraId)}");
+
             if (ModelState.IsValid)
             {
-                _context.Add(@event);
+                _context.Events.Add(@event);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -99,7 +109,6 @@ namespace BulgarianHistory.Controllers
             return View(@event);
         }
 
-        // GET: Event/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -118,7 +127,6 @@ namespace BulgarianHistory.Controllers
             if (id != @event.Id)
                 return NotFound();
 
-            // 🧠 Important: If EraId == 0, the user didn't select a value
             if (@event.EraId == 0)
                 ModelState.AddModelError("EraId", "Моля, изберете епоха.");
 
@@ -139,10 +147,10 @@ namespace BulgarianHistory.Controllers
                 }
             }
 
-            // ✅ This repopulates the dropdown with the correct selected value
             ViewData["EraId"] = new SelectList(_context.Eras, "Id", "Name", @event.EraId);
             return View(@event);
         }
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();

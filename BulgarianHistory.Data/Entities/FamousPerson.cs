@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace BulgarianHistory.Data.Entities
 {
@@ -19,9 +20,11 @@ namespace BulgarianHistory.Data.Entities
 
         [Required]
         public int EraId { get; set; }
-        public Era Era { get; set; }
+        [BindNever]
+        public Era? Era { get; set; } // <- Nullable + не се биндва
 
-        public ICollection<EventFamousPerson> EventFamousPeople { get; set; }
+        [BindNever]
+        public ICollection<EventFamousPerson> EventFamousPeople { get; set; } = new List<EventFamousPerson>(); // <- инициализирана
     }
 
 }

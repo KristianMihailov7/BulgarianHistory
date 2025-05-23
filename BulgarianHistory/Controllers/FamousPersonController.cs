@@ -63,17 +63,19 @@ namespace BulgarianHistory.Controllers
         // POST: FamousPerson/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,ImageUrl,EraId")] FamousPerson famousPerson)
+        public async Task<IActionResult> Create([Bind("Name,Description,ImageUrl,EraId")] FamousPerson person)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(famousPerson);
+                _context.FamousPeople.Add(person);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EraId"] = new SelectList(_context.Eras, "Id", "Name", famousPerson.EraId);
-            return View(famousPerson);
+
+            ViewData["EraId"] = new SelectList(_context.Eras, "Id", "Name", person.EraId);
+            return View(person);
         }
+
 
         // GET: FamousPerson/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -125,19 +127,24 @@ namespace BulgarianHistory.Controllers
             return View(famousPerson);
         }
 
-        // POST: FamousPerson/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var famousPerson = await _context.FamousPeople.FindAsync(id);
-            if (famousPerson != null)
+            var person = await _context.FamousPeople
+                .Include(fp => fp.EventFamousPeople)
+                .FirstOrDefaultAsync(fp => fp.Id == id);
+
+            if (person != null)
             {
-                _context.FamousPeople.Remove(famousPerson);
+                _context.EventFamousPeople.RemoveRange(person.EventFamousPeople);
+                _context.FamousPeople.Remove(person);
                 await _context.SaveChangesAsync();
             }
+
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool FamousPersonExists(int id)
         {
